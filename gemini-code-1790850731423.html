@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cantina Fácil - Fila da Escola</title>
+    <style>
+        /* ==========================================
+           GUIA DE ESTILO DA EQUIPE (Cores e Padrões)
+           ========================================== */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: #121212; /* Fundo preto moderno */
+            color: #FFFFFF;            /* Texto branco legível */
+            font-family: system-ui, -apple-system, sans-serif;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        /* Cabeçalho */
+        header {
+            text-align: center;
+            padding: 12px 0;
+        }
+        header h1 { font-size: 1.4rem; color: #00D2FF; margin-bottom: 4px; }
+        header p { font-size: 0.85rem; color: #AAA; }
+
+        /* Abas de Navegação */
+        .abas {
+            display: flex;
+            gap: 8px;
+            background: #1A1A1A;
+            padding: 4px;
+            border-radius: 14px;
+        }
+        .aba-btn {
+            flex: 1;
+            background: transparent;
+            color: #AAA;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .aba-btn.ativo {
+            background: #00D2FF;
+            color: #121212;
+        }
+
+        /* Conteúdo das Abas */
+        .secao-conteudo { display: none; flex-direction: column; gap: 14px; }
+        .secao-conteudo.ativo { display: flex; }
+
+        /* Card Limpo com Foco Verde (Escolha da Turma) */
+        .card-clean {
+            background: #1E1E1E;
+            border-left: 5px solid #00FF88; /* Detalhe em verde */
+            border-radius: 0 16px 16px 0;
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .card-titulo { font-size: 1.05rem; font-weight: bold; color: #FFF; display: flex; align-items: center; gap: 8px; }
+        .card-texto { font-size: 0.85rem; color: #CCC; line-height: 1.4; }
+
+        /* Ícones Flat Minimalistas (SVG) */
+        .icone-flat { width: 20px; height: 20px; fill: #00FF88; flex-shrink: 0; }
+
+        /* Botão Pílula Suave (Tátil e Confortável) */
+        .btn-pill {
+            background: #FFFFFF;
+            color: #121212;
+            font-weight: 700;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 24px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s, transform 0.1s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        .btn-pill:active { background: #00FF88; transform: scale(0.97); }
+
+        /* Status Badge */
+        .badge {
+            background: rgba(0,255,136,0.15);
+            color: #00FF88;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            display: inline-block;
+            width: fit-content;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- TÍTULO DO SITE -->
+    <header>
+        <h1>🍔 Cantina Fácil</h1>
+        <p>Acompanhe o movimento e salve seu recreio</p>
+    </header>
+
+    <!-- BOTÕES DE ABAS -->
+    <div class="abas">
+        <button class="aba-btn ativo" onclick="mudarAba('fila', this)">Fila</button>
+        <button class="aba-btn" onclick="mnewDataAba('cardapio', this)">Cardápio</button>
+        <button class="aba-btn" onclick="mudarAba('dicas', this)">Dicas</button>
+    </div>
+
+    <!-- ABA 1: STATUS DA FILA -->
+    <div id="fila" class="secao-conteudo ativo">
+        <div class="card-clean">
+            <span class="badge">● AO VIVO</span>
+            <div class="card-titulo">
+                <svg class="icone-flat" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                Pessoas na Fila: ~14 alunos
+            </div>
+            <div class="card-titulo" style="color: #00D2FF;">
+                <svg class="icone-flat" style="fill:#00D2FF;" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                Tempo estimado: 6 minutos
+            </div>
+            <button class="btn-pill" onclick="alert('Obrigado por avisar! Status atualizado.')">Avisar que a fila andou</button>
+        </div>
+    </div>
+
+    <!-- ABA 2: CARDÁPIO -->
+    <div id="cardapio" class="secao-conteudo">
+        <div class="card-clean">
+            <div class="card-titulo">🥪 Salgados do Dia</div>
+            <p class="card-texto">Coxinha de frango, pastel de forno e pão de queijo quentinho.</p>
+        </div>
+        <div class="card-clean">
+            <div class="card-titulo">🧃 Bebidas</div>
+            <p class="card-texto">Suco natural de laranja, maracujá e refrigerantes.</p>
+        </div>
+    </div>
+
+    <!-- ABA 3: DICAS DE HORÁRIO -->
+    <div id="dicas" class="secao-conteudo">
+        <div class="card-clean">
+            <div class="card-titulo">⚡ Horário Ideal</div>
+            <p class="card-texto">Os primeiros 5 minutos do intervalo têm maior pico de fila. Vá nos minutos finais para ser atendido mais rápido!</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    /* ==========================================
+       LÓGICA SIMPLES DE NAVEGAÇÃO POR ABAS
+       ========================================== */
+    function mudarAba(idSecao, botaoClicado) {
+        document.querySelectorAll('.secao-conteudo').forEach(sec => sec.classList.remove('ativo'));
+        document.querySelectorAll('.aba-btn').forEach(btn => btn.classList.remove('ativo'));
+        
+        document.getElementById(idSecao).classList.add('ativo');
+        botaoClicado.classList.add('ativo');
+    }
+</script>
+
+</body>
+</html>
